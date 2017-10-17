@@ -33,7 +33,7 @@ $(function() {
          */
 		 it('has URLs' , function(){
 			 allFeeds.forEach(function(feed){
-				 expect.(feed.url).toBeDefined();
+				 expect(feed.url).toBeDefined();
 				 expect(feed.url).not.toBe('');
 				 expect(feed.url).toEqual(jasmine.any(String));
 			 });
@@ -46,7 +46,7 @@ $(function() {
          */
 		 it('has names' , function(){
 			 allFeeds.forEach(function(feed){
-				 expect.(feed.name).toBeDefined();
+				 expect(feed.name).toBeDefined();
 				 expect(feed.name).not.toBe('');
 				 expect(feed.name).toEqual(jasmine.any(String));
 			 });
@@ -55,24 +55,42 @@ $(function() {
 
 
     /* TODO: Write a new test suite named "The menu" */
-	
+	describe('The menu', function(){
+		/* TODO: Assign menu related elements to variables for access in tests */
+		var menu = $("body");
+		var menu-icon = $(".menu-icon-link");
 		
         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
+		 *
+		 * In review of the index.html file, menu-hidden class name 
+		 * is used to determine if the menu element is hidden or not.
          */
-		 
+		 it('is hidden by default', function(){
+			 expect(menu.hasClass('menu-hidden')).toBe(true);
+		 });
 
          /* TODO: Write a test that ensures the menu changes
           * visibility when the menu icon is clicked. This test
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
+          *
+		  * In review of the index.html page, after loading, visibility is determined 
+		  * by the presence of the associated menu-hidden class. The menu is closed 
+		  * by default so initial click removes the class, second click adds it back.
           */
-
+		  it('changes visibility on click', function(){
+			  menu-icon.trigger('click');
+			  expect(menu.hasClass('menu-hidden')).toBe('false');
+			  menu-icon.trigger('click');
+			  expect(menu.hasClass('menu-hidden')).toBe('true');
+		  });
+	});
 
     /* TODO: Write a new test suite named "Initial Entries" */
-
+	
         /* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
