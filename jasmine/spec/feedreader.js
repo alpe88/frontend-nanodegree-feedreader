@@ -56,9 +56,9 @@ $(function() {
 
     /* TODO: Write a new test suite named "The menu" */
 	describe('The menu', function(){
-		/* TODO: Assign menu related elements to variables for access in tests */
+		/* TODO: Assign menu related elements to variables for access in tests. */
 		var menu = $("body");
-		var menu-icon = $(".menu-icon-link");
+		var menuicon = $(".menu-icon-link");
 		
         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
@@ -82,22 +82,36 @@ $(function() {
 		  * by default so initial click removes the class, second click adds it back.
           */
 		  it('changes visibility on click', function(){
-			  menu-icon.trigger('click');
-			  expect(menu.hasClass('menu-hidden')).toBe('false');
-			  menu-icon.trigger('click');
-			  expect(menu.hasClass('menu-hidden')).toBe('true');
+			  menuicon.trigger('click');
+			  expect(menu.hasClass('menu-hidden')).toBe(false);
+			  menuicon.trigger('click');
+			  expect(menu.hasClass('menu-hidden')).toBe(true);
 		  });
 	});
 
-    /* TODO: Write a new test suite named "Initial Entries" */
-	
-        /* TODO: Write a test that ensures when the loadFeed
+ /* TODO: Write a new test suite named "Initial Entries" */
+	describe('Initial Entries', function(){
+		
+		/* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
-
+		 beforeEach(function(done){
+			 loadFeed(0, done);
+		 });
+		 
+		 it('has one entry', function(done){
+			/* Element has to be called locally within this function after the data is returned 
+			 * from the ajax call.	
+			 */
+			 var entry = $(".feed").children();
+			 expect(entry.length).toBeGreaterThan(0);
+			 done();
+		 });
+	});
+	
     /* TODO: Write a new test suite named "New Feed Selection" */
 
         /* TODO: Write a test that ensures when a new feed is loaded
