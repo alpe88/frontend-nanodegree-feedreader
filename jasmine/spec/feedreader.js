@@ -26,7 +26,7 @@ $(function () {
 			expect(allFeeds.length).not.toBe(0);
 		});
 
-		/* TODO: Write a test that loops through each feed
+		/* Wrote a test that loops through each feed
 		 * in the allFeeds object and ensures it has a URL defined
 		 * and that the URL is not empty.
 		 */
@@ -35,10 +35,12 @@ $(function () {
 				expect(feed.url).toBeDefined();
 				expect(feed.url).not.toBe('');
 				expect(feed.url).toEqual(jasmine.any(String));
+				expect(feed.url).toMatch(/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?$/i); /* This regex check for all forms of a possible url. */
+				expect(feed.url).toBeTruthy(); /* This covers all truthiness, including url.length === 0 and url === undefined! . */
 			});
 		});
 
-		/* TODO: Write a test that loops through each feed
+		/* Wrote a test that loops through each feed
 		 * in the allFeeds object and ensures it has a name defined
 		 * and that the name is not empty.
 		 */
@@ -51,14 +53,14 @@ $(function () {
 		});
 	});
 
-	/* TODO: Write a new test suite named "The menu". */
+	/* Wrote a new test suite named "The menu". */
 	describe('The menu', function () {
 		/* TODO: Assign menu related elements to variables for access in tests. */
 		var menu = $("body");
 		var menuicon = $(".menu-icon-link");
 
-		/* TODO: Write a test that ensures the menu element is
-		 * hidden by default. You'll have to analyze the HTML and
+		/* Wrote a test that ensures the menu element is
+		 * hidden by default. Note - analyse the HTML and
 		 * the CSS to determine how we're performing the
 		 * hiding/showing of the menu element.
 		 *
@@ -69,7 +71,7 @@ $(function () {
 			expect(menu.hasClass('menu-hidden')).toBe(true);
 		});
 
-		/* TODO: Write a test that ensures the menu changes
+		/* Wrote a test that ensures the menu changes
 		 * visibility when the menu icon is clicked. This test
 		 * should have two expectations: does the menu display when
 		 * clicked and does it hide when clicked again.
@@ -86,13 +88,13 @@ $(function () {
 		});
 	});
 
-	/* TODO: Write a new test suite named "Initial Entries". */
+	/* Wrote a new test suite named "Initial Entries". */
 	describe('Initial Entries', function () {
 
-		/* TODO: Write a test that ensures when the loadFeed
+		/* Wrote a test that ensures when the loadFeed
 		 * function is called and completes its work, there is at least
 		 * a single .entry element within the .feed container.
-		 * Remember, loadFeed() is asynchronous so this test will require
+		 * Note, loadFeed() is asynchronous so this test will require
 		 * the use of Jasmine's beforeEach and asynchronous done() function.
 		 */
 		beforeEach(function (done) {
@@ -103,17 +105,17 @@ $(function () {
 			/* Element has to be called locally within this function after the data is returned
 			 * from the ajax call.
 			 */
-			var entry = $(".feed .entry-link .entry");
+			var entry = $(".feed .entry");
 			expect(entry.length).toBeGreaterThan(0);
 			done();
 		});
 	});
 
-	/* TODO: Write a new test suite named "New Feed Selection". */
+	/* Wrote a new test suite named "New Feed Selection". */
 	describe('New Feed Selection', function () {
-		/* TODO: Write a test that ensures when a new feed is loaded
+		/* Wrote a test that ensures when a new feed is loaded
 		 * by the loadFeed function that the content actually changes.
-		 * Remember, loadFeed() is asynchronous.
+		 * Note, loadFeed() is asynchronous.
 		 */
 
 		/* Initialize feed related variables needed for test - an index as feed place-holder in feed array. */
@@ -122,26 +124,24 @@ $(function () {
 
 		/* For each feed loaded store entry in local feeds array, to be compared after async request is complete. */
 		beforeEach(function (done) {
-			loadFeed(index++, function () {
-				var entry = $(".feed .entry-link .entry");
-				feedsArr.push(entry);
+			loadFeed(index++, function() {
+				var entry = $(".feed .entry");
+    			feedsArr = (entry);
 				done();
-				console.log(feedsArr);
-			});
+    		});
 		});
 		
 		/* Check first that the initial feed even loaded. */
 		it('first feed loads', function(done){
-			var entry = $(".feed .entry-link .entry");
+			var entry = $(".feed .entry");
 			expect(entry.length).toBeGreaterThan(0);
 			done();
 		});
 		
 		/* Check that next feed loaded is different than prior. */
 		it('next feed loads', function(done){
-			expect(feedsArr[0][0].innerHTML).not.toBe(feedsArr[0][1].innerHTML);
+			expect(feedsArr[0].innerHTML).not.toBe(feedsArr[1].innerHTML);
     		done();
-			loadFeed(0);
 		});
 		
 	});
